@@ -1,42 +1,39 @@
 # ADC-AVR
-C library of Analog to Digital Converter module for ATmega328 MCU.
-this library allow you to use ADC module with interrupt or without, by decommenting ro commenting this line:
-```c
-#define _ADC_IRQ_EN 
-```
+This C library is for the Analog to Digital Converter module of ATmega328 MCU, it allows you to use the ADC module with or without Interrupts.
+
 ## Functions :
 ```c
 void initADC(ANALOG_REF ref);
 ```
-to initiate ADC module, and `ref` variable have a three value possible:
+This function initiates the ADC module, the function's parameter ref should be one of the followings:
 - `AREF` : selecte external voltage reference.
 - `AVCC` : the same power supply of MCU.
 - `INTERNAL_1_1` : internal 1.1V voltage reference.
 ```c
 uint8_t setAnalogReference(ANALOG_REF ref);
 ```
-to change voltage reference of ADC module.
+This function changes the ADC module voltage reference.
 
 ```c
 uint16_t analogRead(ANALOG_CHANNEL adcCh);
 ```
-this function return the value of ACD when complete conversion, to one of the following channel:
-`A0`, `A1`, `A2`, `A3`, `A4`, `A5`, `A6` and `A7` (in SMD MCU model), `INT_TEMP_SENSOR`, `BANG_GAP_VOLATGE` and `ANALOG_GND`.
+This function returns the ADC value (when conversion is completed) to one of the following channels:
+`A0`, `A1`, `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `INT_TEMP_SENSOR`, `BANG_GAP_VOLATGE` and `ANALOG_GND`.
 ```c
 void start_conversion();
 ```
-start conversion, we use this function when using interrupt of ADC.
+We use this function to start conversion when ADC interrupts will be used.
 ```c
 void ADC_attach_interrupt(void* f_ptr);
 ```
-specifies a function to call when an ADC complete conversion, this function accept as parameter name of custom function.
+specifies a function to call when conversion is completed, this function's parameter represents the custom function name we wanna call.
 ```c
 void ADC_IRQ_disable();
 ```
-to disable occurring interrupt.
+This function is used to disable Interrupts occurring.
 ## Example:
 ### 1- Without Interrupt : 
-first confim that you comment this line `#define _ADC_IRQ_EN` in `ADC_avr.h` file.
+When using this code, make sure to comment out the line: `#define _ADC_IRQ_EN` in `ADC_avr.h` file.
 ```c 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -60,7 +57,7 @@ int main(void)
 }
 ```
 ### 2- With Interrupt : 
-first confim that this line `#define _ADC_IRQ_EN` in `ADC_avr.h` file is uncommented.
+When using this code, make sure to uncomment the line: `#define _ADC_IRQ_EN` in `ADC_avr.h` file.
 ```c
 #include <avr/io.h>
 #include <util/delay.h>
