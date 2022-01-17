@@ -70,7 +70,8 @@ int main(void)
   attach_interrupt(print_ADC_value);
   SerialBegin(9600);
   sei();
-  while (1){
+  while (1)
+  {
     start_conversion(A0);
     _delay_ms(100);
   }
