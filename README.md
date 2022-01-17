@@ -40,8 +40,6 @@ When using this code, make sure to comment out the line: `#define _ADC_IRQ_EN` i
 #include "ADC/ADC328p.h"
 #include "Serial/uart.h"
 
-void print_ADC_value();
-
 int main(void)
 {
   int adc;
